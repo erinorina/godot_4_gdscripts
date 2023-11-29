@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://nbweflimmwpt"]
+
+[ext_resource type="PackedScene" uid="uid://q5c0l3ws22a0" path="res://man.glb" id="1_bvymt"]
+[ext_resource type="Script" path="res://Anim_man.gd" id="2_0nvlh"]
+
+[node name="man" instance=ExtResource("1_bvymt")]
+script = ExtResource("2_0nvlh")
+
+[node name="Skeleton3D" parent="metarig" index="0"]
+bones/3/rotation = Quaternion(-0.0774641, 0, 0, 0.996995)
+bones/14/rotation = Quaternion(0.180411, -0.179312, 0.0463529, 0.965997)
+bones/16/rotation = Quaternion(0.986515, 0, 0, 0.163672)
+bones/17/rotation = Quaternion(0.0875413, 0, 0, 0.996161)
+bones/20/rotation = Quaternion(0.986515, 0, 0, 0.163672)
+bones/21/rotation = Quaternion(0.0875413, 0, 0, 0.996161)
+
+[node name="ray" type="RayCast3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="ray_forward" type="RayCast3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.2)
+
+[node name="ray_backward" type="RayCast3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.2)
