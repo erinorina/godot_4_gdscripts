@@ -3,6 +3,10 @@ extends Node3D
 @onready var ray = $ray
 @onready var ray_forward = $ray_forward
 @onready var ray_backward = $ray_backward
+@onready var ray_left = $ray_left
+@onready var ray_right = $ray_right
+
+
 var speed = 0.4
 var original_transform: Transform3D
 
@@ -67,10 +71,12 @@ var MAX_SPEED_BACK = 1.6
 func on_ground(_collider, _delta):
 	if ray.is_colliding() and _collider.name == "ground":
 		change_ray_length(-1)
+		
 		if velocity_z > 0:
 			animation_player.play("walk",-1, speed)
 			speed += speed_increase
 			speed = clamp(speed + speed_increase, 0, MAX_SPEED)
+			climb_up(_delta)
 		if velocity_z < 0:
 			animation_player.play("walk_back",-1, speed)
 			speed += speed_increase
@@ -96,13 +102,38 @@ func holes_detector(_collider, _delta):
 				
 		if !ray_backward.is_colliding():
 			dir = 0.8
+		if velocity_z <=0.1:
+			if !ray_left.is_colliding():
+				ai_rotation(-0.1,_delta)
+				
+			if !ray_right.is_colliding():
+				ai_rotation(0.1,_delta)
 
+			
+			if !ray_left.is_colliding() and !ray_right.is_colliding():
+				ai_rotation_urgent(_delta)
+		
 		translate_object_local(Vector3(0,0,dir) * _delta)
-		ai_random_rotation(_delta)
+		if ray.is_colliding() and ray_backward.is_colliding() and ray_forward.is_colliding() and ray_left.is_colliding() and ray_right.is_colliding():
+			ai_random_rotation(_delta)
 
+
+
+func climb_up(_delta):
+	# in dev dirty bugged
+	var raycol = ray.get_collision_point()
+	var rayfor = ray_forward.get_collision_point()
+	var rayback = ray_backward.get_collision_point()
+	if raycol.y < rayfor.y or raycol.y < rayback.y:
+		print("upstair")
+		change_ray_length(-2.0)
+		self.position.y = rayfor.y - _delta
+	if raycol.y > rayfor.y or raycol.y > rayback.y:
+		change_ray_length(-2.0)
+		print("downstair")
 
 func falling(_delta):
-	if !ray.is_colliding() :
+	if !ray.is_colliding() and !ray_forward.is_colliding():
 		change_ray_length(-1)
 		animation_player.play("fall")
 
@@ -116,6 +147,19 @@ func ai_random_rotation(_delta):
 	ai_current_rotation = lerp(ai_current_rotation, ai_target_rotation, _delta * ai_rotation_speed)
 	rotate_y(ai_current_rotation)
 
+
+func ai_rotation(_rotation,_delta):
+	var rotation_input = _rotation *speed * _delta
+	ai_target_rotation = rotation_input * ai_rotation_speed
+	ai_current_rotation = lerp(ai_current_rotation, ai_target_rotation, _delta * ai_rotation_speed)
+	rotate_y(ai_current_rotation)
+	
+	
+func ai_rotation_urgent(_delta):
+	var rotation_input = 0.5 *speed * _delta
+	ai_target_rotation = rotation_input * ai_rotation_speed
+	ai_current_rotation = lerp(ai_current_rotation, ai_target_rotation, _delta * ai_rotation_speed)
+	rotate_y(ai_current_rotation)
 
 var direction_z = 0.0
 var total_time = 4.0

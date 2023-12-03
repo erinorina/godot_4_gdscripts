@@ -125,6 +125,28 @@ shape = SubResource("BoxShape3D_l3ay1")
 transform = Transform3D(0.125, 0, 0, 0, 1, 0, 0, 0, 0.125, 0, 0, 0)
 size = Vector3(8, 1, 8)
 
+[node name="ground" type="StaticBody3D" parent="ground/ground/ground/ground"]
+transform = Transform3D(0.0559392, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -8)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground/ground/ground/ground/ground"]
+transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 8, 0, 0, 0)
+shape = SubResource("BoxShape3D_l3ay1")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="ground/ground/ground/ground/ground/CollisionShape3D"]
+transform = Transform3D(0.125, 0, 0, 0, 1, 0, 0, 0, 0.125, 0, 0, 0)
+size = Vector3(8, 1, 8)
+
+[node name="ground" type="StaticBody3D" parent="ground/ground/ground/ground/ground"]
+transform = Transform3D(6.56711, 0, 0, 0, 0.999998, -5.66017e-08, 0, 1.49011e-07, 0.379847, 59.1306, 0.202154, -7.12209)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ground/ground/ground/ground/ground/ground"]
+transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 8, 0, 0, 0)
+shape = SubResource("BoxShape3D_l3ay1")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="ground/ground/ground/ground/ground/ground/CollisionShape3D"]
+transform = Transform3D(0.125, 0, 0, 0, 1, 0, 0, 0, 0.125, 0, 0, 0)
+size = Vector3(8, 1, 8)
+
 [node name="sphere" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
 
