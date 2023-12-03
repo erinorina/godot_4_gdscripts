@@ -19,6 +19,8 @@ func _ready():
 func _physics_process(delta):
 
 	var collider = ray.get_collider()
+#	if collider !=null:
+#		print("collider ", collider.name)
 	
 #	ai_random_rotation(delta)
 #	ai_random_forward_backward(delta)
@@ -69,7 +71,7 @@ var MAX_SPEED = 3.6
 var MAX_SPEED_BACK = 1.6
 
 func on_ground(_collider, _delta):
-	if ray.is_colliding() and _collider.name == "ground":
+	if ray.is_colliding() and _collider.name == "StaticBody3D"  : #and is_in_group("ground"): # 
 		change_ray_length(-1)
 		
 		if velocity_z > 0:
