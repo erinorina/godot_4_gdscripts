@@ -117,9 +117,10 @@ func holes_detector(_collider, _delta):
 		
 		translate_object_local(Vector3(0,0,dir) * _delta)
 		if ray.is_colliding() and ray_backward.is_colliding() and ray_forward.is_colliding() and ray_left.is_colliding() and ray_right.is_colliding():
+			await get_tree().create_timer(0.8).timeout # avoid tight corner out falling in water
 			ai_random_rotation(_delta)
-
-
+		if !ray.is_colliding() and !ray_backward.is_colliding() and !ray_forward.is_colliding() and !ray_left.is_colliding() and !ray_right.is_colliding():
+			print("falling in the void")
 
 func climb_up(_delta):
 	# in dev dirty bugged
@@ -127,12 +128,12 @@ func climb_up(_delta):
 	var rayfor = ray_forward.get_collision_point()
 	var rayback = ray_backward.get_collision_point()
 	if raycol.y < rayfor.y or raycol.y < rayback.y:
-		print("upstair")
+#		print("upstair")
 		change_ray_length(-2.0)
 		self.position.y = rayfor.y - _delta
 	if raycol.y > rayfor.y or raycol.y > rayback.y:
 		change_ray_length(-2.0)
-		print("downstair")
+#		print("downstair")
 
 func falling(_delta):
 	if !ray.is_colliding() and !ray_forward.is_colliding():
