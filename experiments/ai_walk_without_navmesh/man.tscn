@@ -6,25 +6,39 @@
 [node name="man" instance=ExtResource("1_bvymt")]
 script = ExtResource("2_0nvlh")
 
-[node name="Skeleton3D" parent="metarig" index="0"]
-bones/3/rotation = Quaternion(-0.0774641, 0, 0, 0.996995)
-bones/14/rotation = Quaternion(0.180411, -0.179312, 0.0463529, 0.965997)
-bones/16/rotation = Quaternion(0.986515, 0, 0, 0.163672)
-bones/17/rotation = Quaternion(0.0875413, 0, 0, 0.996161)
-bones/20/rotation = Quaternion(0.986515, 0, 0, 0.163672)
-bones/21/rotation = Quaternion(0.0875413, 0, 0, 0.996161)
+[node name="Skeleton3D" parent="rig" index="0"]
+bones/1/rotation = Quaternion(0.790455, 0, 0, 0.61252)
+bones/2/rotation = Quaternion(-0.124199, -0.00490913, 0.000932862, 0.992245)
+bones/3/rotation = Quaternion(-0.428645, -0.0153297, -0.0118353, 0.903265)
+bones/7/rotation = Quaternion(-0.231717, -0.00992333, 0.000934045, 0.972732)
+bones/9/rotation = Quaternion(-0.164714, 0.930393, -0.0898095, 0.314916)
+bones/10/rotation = Quaternion(0.181481, 0.155094, 0.348801, 0.906283)
+bones/13/rotation = Quaternion(-0.0460642, -0.917764, 0.272728, 0.284967)
+bones/14/rotation = Quaternion(0.18137, -0.154795, -0.35179, 0.9052)
+bones/16/rotation = Quaternion(0.961891, 0.221175, -0.0194907, 0.159586)
+bones/17/rotation = Quaternion(0.45926, 0.0310341, -0.000345702, 0.88776)
+bones/20/rotation = Quaternion(0.965136, -0.20626, 0.0181764, 0.160125)
+bones/21/rotation = Quaternion(0.401662, -0.0882942, 0.000983535, 0.911521)
 
 [node name="ray" type="RayCast3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 4
 
-[node name="ray_forward" type="RayCast3D" parent="." index="3"]
+[node name="ray_jump" type="RayCast3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.5)
+debug_shape_custom_color = Color(1, 1, 0, 1)
+
+[node name="ray_forward" type="RayCast3D" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.2)
 
-[node name="ray_backward" type="RayCast3D" parent="." index="4"]
+[node name="ray_backward" type="RayCast3D" parent="." index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.2)
 
-[node name="ray_left" type="RayCast3D" parent="." index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.272314, 0.5, 1.01278)
+[node name="ray_left" type="RayCast3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.5, 1)
+target_position = Vector3(0, -2, 0)
 
-[node name="ray_right" type="RayCast3D" parent="." index="6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.274641, 0.5, 1.0065)
+[node name="ray_right" type="RayCast3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.5, 1)
+target_position = Vector3(0, -2, 0)

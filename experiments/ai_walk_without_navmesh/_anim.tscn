@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c5gytgevcbmhn"]
+
+[node name="Anim"]
+
+[node name="Skeleton3D" parent="metarig" index="0"]
+bones/3/rotation = Quaternion(0.00162715, 0, 0, 0.999999)
