@@ -115,5 +115,10 @@ text = "ai_walk_start"
 layout_mode = 2
 text = "ai_walk_stop"
 
+[node name="ai_go_to_objective_a" type="Button" parent="ai_control/VBoxContainer"]
+layout_mode = 2
+text = "ai_go_to_objective_a (patrol)"
+
 [connection signal="pressed" from="ai_control/VBoxContainer/ai_walk_start" to="ai_control" method="_on_ai_walk_start_pressed"]
 [connection signal="pressed" from="ai_control/VBoxContainer/ai_walk_stop" to="ai_control" method="_on_ai_walk_stop_pressed"]
+[connection signal="pressed" from="ai_control/VBoxContainer/ai_go_to_objective_a" to="ai_control" method="_on_ai_go_to_objective_a_pressed"]

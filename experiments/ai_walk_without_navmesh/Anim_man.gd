@@ -97,13 +97,16 @@ func _physics_process(delta):
 	adjust_ray_on_collision_surface(delta)
 	free_fall_kinematics(delta)
 
+	if singleton_ai_control.ai_go_to_objective_a:
+#		look_objective_a(objective_a, Vector3.UP, true)
+		patrol_objective_a(objective_a)
 #	ai_advance_or_stop_on_holes(delta)
 #	ai_rotation_behavior_on_holes(delta)
 	
 	
 	
 var objective_a = Vector3(-10,0,0)
-func look_objective_a(_delta):
+func _look_objective_a(_delta):
 	var direction_to_target = (objective_a - self.global_transform.origin).normalized()
 	var current_direction = self.global_transform.basis.z
 	var angle = current_direction.angle_to(direction_to_target)
@@ -117,7 +120,25 @@ func look_objective_a(_delta):
 
 
 
+func __look_objective_a(target: Vector3, up: Vector3 = Vector3.UP):
+	var direction = (target - self.global_transform.origin).normalized()
+	var right = direction.cross(up).normalized()
+	var new_up = right.cross(direction)
 
+	self.global_transform.basis = Basis(right, new_up, direction) # Value of type "Basis" cannot be assigned to a variable of type "Vector3"
+
+func look_objective_a(target: Vector3, up: Vector3 = Vector3.UP, _model_front:bool=true):
+
+	var current_rotation = self.rotation
+	self.look_at(target, up,_model_front)
+	self.rotation.x = current_rotation.x
+	self.rotation.z = current_rotation.z
+
+func patrol_objective_a(_target):
+	if self.global_transform.origin.distance_to(_target) > 10.0 : 
+		look_objective_a(objective_a, Vector3.UP, true)
+	if self.global_transform.origin.distance_to(_target) < 1.0: # Adjust the threshold as needed
+		look_objective_a(objective_a, Vector3.UP, false)
 
 
 
@@ -306,8 +327,8 @@ func adjust_ray_on_collision_surface(_delta):
 
 		if distance ==1.0 and get_velocity_z==0.0 and !ground_landing_impact :
 			ai_rotation_avoid_holes(_delta)
-
-#			look_objective_a(_delta)
+#			if singleton_ai_control.ai_go_to_objective_a:
+#				look_objective_a(_delta)
 		if distance ==1.0 and get_velocity_z==0.0 and ground_landing_impact :
 			current_state=States.LANDING
 			
